@@ -1,0 +1,3 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\CompOversizedWeapon\Assemblies\CompOversizedWeapon.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\CompOversizedWeapon\Source\CompExtraSounds\obj\Debug\CompOversizedWeapon.csprojResolveAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\CompOversizedWeapon\Source\CompExtraSounds\obj\Debug\CompOversizedWeapon.dll
