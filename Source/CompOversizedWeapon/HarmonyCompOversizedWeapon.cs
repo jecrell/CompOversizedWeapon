@@ -43,9 +43,22 @@ namespace CompOversizedWeapon
                 ThingWithComps thingWithComps = (ThingWithComps)AccessTools.Field(typeof(Pawn_EquipmentTracker), "primaryInt").GetValue(pawn_EquipmentTracker);
                 if (thingWithComps != null)
                 {
+                    //If the deflector is active, it's already using this code.
+                    ThingComp deflector = thingWithComps.AllComps.FirstOrDefault<ThingComp>((ThingComp y) => y.GetType().ToString() == "CompDeflector.CompDeflector");
+                    if (deflector != null)
+                    {
+                        bool isAnimatingNow = (bool)AccessTools.Property(deflector.GetType(), "IsAnimatingNow").GetValue(deflector, null);
+                        if (isAnimatingNow)
+                        {
+                            return false;
+                        }
+
+                    }
+
                     CompOversizedWeapon compOversizedWeapon = thingWithComps.TryGetComp<CompOversizedWeapon>();
                     if (compOversizedWeapon != null)
                     {
+                        bool flip = false;
                         float num = aimAngle - 90f;
                         Mesh mesh;
                         if (aimAngle > 20f && aimAngle < 160f)
@@ -56,6 +69,7 @@ namespace CompOversizedWeapon
                         else if (aimAngle > 200f && aimAngle < 340f)
                         {
                             mesh = MeshPool.plane10Flip;
+                            flip = true;
                             num -= 180f;
                             num -= eq.def.equippedAngleOffset;
                         }
@@ -77,6 +91,13 @@ namespace CompOversizedWeapon
                         }
                         mesh = MeshPool.GridPlane(thingWithComps.def.graphicData.drawSize);
                         Graphics.DrawMesh(mesh, drawLoc, Quaternion.AngleAxis(num, Vector3.up), matSingle, 0);
+                        //Log.Message("Oversized Draw");
+
+                        //Vector3 s = new Vector3(eq.def.graphicData.drawSize.x, 1f, eq.def.graphicData.drawSize.y);
+                        //Matrix4x4 matrix = default(Matrix4x4);
+                        //matrix.SetTRS(drawLoc, Quaternion.AngleAxis(num, Vector3.up), s);
+                        //if (!flip) Graphics.DrawMesh(MeshPool.plane10, matrix, matSingle, 0);
+                        //else Graphics.DrawMesh(MeshPool.plane10Flip, matrix, matSingle, 0);
                         return false;
                     }
                 }
@@ -87,15 +108,18 @@ namespace CompOversizedWeapon
 
         public static void get_Graphic_PostFix(Thing __instance, ref Graphic __result)
         {
-            ThingWithComps thingWithComps = __instance as ThingWithComps;
-            if (thingWithComps != null)
+            Graphic tempGraphic = (Graphic)AccessTools.Field(typeof(Thing), "graphicInt").GetValue(__instance);
+            if (tempGraphic != null)
             {
-                CompOversizedWeapon compOversizedWeapon = thingWithComps.TryGetComp<CompOversizedWeapon>();
-                if (compOversizedWeapon != null)
-                { 
-                    Graphic tempGraphic = (Graphic)AccessTools.Field(typeof(Thing), "graphicInt").GetValue(__instance);
-                    tempGraphic.drawSize = __instance.def.graphicData.drawSize;
-                    __result = tempGraphic;
+                ThingWithComps thingWithComps = __instance as ThingWithComps;
+                if (thingWithComps != null)
+                {
+                    CompOversizedWeapon compOversizedWeapon = thingWithComps.TryGetComp<CompOversizedWeapon>();
+                    if (compOversizedWeapon != null)
+                    {
+                        tempGraphic.drawSize = __instance.def.graphicData.drawSize;
+                        __result = tempGraphic;
+                    }
                 }
             }
 
