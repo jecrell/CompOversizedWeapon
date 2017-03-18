@@ -104,7 +104,7 @@ namespace CompOversizedWeapon
                 if (thingWithComps != null)
                 {
                     //If the deflector is active, it's already using this code.
-                    ThingComp deflector = thingWithComps.AllComps.FirstOrDefault<ThingComp>((ThingComp y) => y.GetType().ToString() == "CompDeflector.CompDeflector");
+                    ThingComp deflector = thingWithComps.AllComps.FirstOrDefault<ThingComp>((ThingComp y) => y.GetType().ToString().Contains("Deflect"));
                     if (deflector != null)
                     {
                         //Log.Message("Prefix");
@@ -179,7 +179,7 @@ namespace CompOversizedWeapon
                     {
                         return;
                     }
-                    ThingComp activatableEffect = thingWithComps.AllComps.FirstOrDefault<ThingComp>((ThingComp y) => y.GetType().ToString() == "CompActivatableEffect.CompActivatableEffect");
+                    ThingComp activatableEffect = thingWithComps.AllComps.FirstOrDefault<ThingComp>((ThingComp y) => y.GetType().ToString().Contains("ActivatableEffect"));
                     if (activatableEffect != null)
                     {
                         return;
