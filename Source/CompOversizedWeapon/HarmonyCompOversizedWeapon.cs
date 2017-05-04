@@ -111,7 +111,7 @@ namespace CompOversizedWeapon
                 ThingWithComps thingWithComps = __instance as ThingWithComps;
                 if (thingWithComps != null)
                 {
-                    if (thingWithComps.holdingContainer != null)
+                    if (thingWithComps.holdingOwner != null)
                     {
                         return;
                     }
