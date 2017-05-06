@@ -85,9 +85,6 @@ namespace CompOversizedWeapon
                     {
                         matSingle = eq.Graphic.MatSingle;
                     }
-                    //mesh = MeshPool.GridPlane(thingWithComps.def.graphicData.drawSize);
-                    //Graphics.DrawMesh(mesh, drawLoc, Quaternion.AngleAxis(num, Vector3.up), matSingle, 0);
-                    //Log.Message("Oversized Draw");
 
                     Vector3 s = new Vector3(eq.def.graphicData.drawSize.x, 1f, eq.def.graphicData.drawSize.y);
                     Matrix4x4 matrix = default(Matrix4x4);
@@ -95,7 +92,6 @@ namespace CompOversizedWeapon
                     if (!flip) Graphics.DrawMesh(MeshPool.plane10, matrix, matSingle, 0);
                     else Graphics.DrawMesh(MeshPool.plane10Flip, matrix, matSingle, 0);
                     return false;
-                    //Log.Message("Oversized Called");
                 }
             }
             //}
